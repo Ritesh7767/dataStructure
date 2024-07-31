@@ -1,39 +1,39 @@
-demo = [1,0,0,1,1,0,0,1,1]
+# demo = [1,0,0,1,1,0,0,1,1]
 
-count0 = 0
-count1 = 0
-for i in range(len(demo)):
+# count0 = 0
+# count1 = 0
+# for i in range(len(demo)):
     
-    if demo[i] == 0:
-        count0 += 1
-    else:
-        count1 += 1
+#     if demo[i] == 0:
+#         count0 += 1
+#     else:
+#         count1 += 1
 
-for j in range(count0):
-    demo[j] = 0
+# for j in range(count0):
+#     demo[j] = 0
 
-for k in range(count1, len(demo)):
-    demo[k] = 1
+# for k in range(count1, len(demo)):
+#     demo[k] = 1
 
-print(demo)             # O(n)
+# print(demo)             # O(n)
 
 
-arr = [1,0,0,1,1,0,1]
+# arr = [1,0,0,1,1,0,1]
 
-left = 0
-right = len(arr) - 1
+# left = 0
+# right = len(arr) - 1
 
-while (left < right):
+# while (left < right):
 
-    if arr[left] == 0:
-        left += 1
-    else:
-        if arr[right] == 0:
-            arr[left], arr[right] = arr[right], arr[left]
-        else:
-            right -= 1
+#     if arr[left] == 0:
+#         left += 1
+#     else:
+#         if arr[right] == 0:
+#             arr[left], arr[right] = arr[right], arr[left]
+#         else:
+#             right -= 1
 
-print(arr)                  # O(n)
+# print(arr)                  # O(n)
 
 
 
@@ -167,27 +167,125 @@ print(arr)                  # O(n)
 # response = pairs(45, arr)
 # print(response)
 
+
+# def productPair(k, arr):
+
+#     arr.sort()
+#     left = 0
+#     right = len(arr) - 1
+
+#     while(left < right):
+
+#         product = arr[left] *arr[right]
+    
+#         if product == k:
+#             return arr[left] , arr[right]
+#         elif product > k:
+#             right -= 1
+#         else: 
+#             left += 1
+     
+#     return 0
+
+
+# response = productPair(21, arr)
+# print(response)
+
+
 arr = [3,7,8,11,23]
 
-def productPair(k, arr):
-
+def addPair(k, arr):
     arr.sort()
+
     left = 0
     right = len(arr) - 1
 
-    while(left < right):
+    while (left < right):
 
-        product = arr[left] *arr[right]
-    
-        if product == k:
-            return arr[left] , arr[right]
-        elif product > k:
+        result = arr[left] + arr[right]
+
+        if result == k:
+            return arr[left], arr[right]
+
+        elif result > k:
+            right -= 1
+        
+        else:
+            left += 1
+
+    return 0
+
+response = addPair(19, arr)
+
+def addPairs (k, arr):
+
+    arr.sort()
+    listOfPairs = []
+
+    left = 0
+    right = len(arr) - 1
+
+    while (left < right):
+
+        result = arr[left] + arr[right]
+
+        if result == k:
+            listOfPairs.append([arr[left], arr[right]])
+            left += 1
+            right -= 1
+            
+        elif result > k:
+            right -= 1
+        else:
+            left += 1
+
+    return listOfPairs
+
+response = addPairs(19, arr)
+
+# def indicesOf (k, arr):
+
+def pairs (k, arr):
+
+    arr.sort()
+
+    left = 0
+    right = len(arr) - 1
+
+    while (left < right):
+
+        result = arr[left] + arr[right]
+
+        if result == k:
+            return 1
+        elif result > k:
             right -= 1
         else: 
             left += 1
-     
+    
     return 0
 
+response = pairs(19, arr)
 
-response = productPair(21, arr)
+def maxProduct (arr):
+
+    arr.sort()
+
+    return arr[len(arr) - 2] * arr[len(arr) - 1]
+
+response = maxProduct(arr)
+
+# def twoDistince
+
+
+
+
+
+
+
+
+
+
+
+
 print(response)
