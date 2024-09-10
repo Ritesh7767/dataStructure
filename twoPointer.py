@@ -1492,6 +1492,382 @@ def mergeSort(arr):
         
 
 arr = [64, 34, 25, 12, 22, 11, 90]
-print("insertion sort", insertionSort(arr))
-print("bubble sort", bubbleSort(arr))
-print("selection sort", selectionSort(arr))
+# print("insertion sort", insertionSort(arr))
+# print("bubble sort", bubbleSort(arr))
+# print("selection sort", selectionSort(arr))
+
+arr1 = [1,2,3,4]
+arr2 = [3,4,5,6]
+
+def mergeTwo(arr1, arr2):
+
+    if not arr1:
+        return arr2
+    elif not arr2:
+        return arr1
+    
+    result = []
+    left = 0
+    right = 0
+
+    while left < len(arr1) and right < len(arr2):
+
+        if arr1[left] == arr2[right]:
+            result.append(arr1[left])
+            result.append(arr2[right])
+            left += 1
+            right += 1
+        elif arr1[left] < arr2[right]:
+            result.append(arr1[left])
+            left += 1
+        else:
+            result.append(arr2[right])
+            right += 1
+
+    if left < len(arr1):
+        while left < len(arr1):
+            result.append(arr1[left])
+            left += 1
+
+    else:
+        while right < len(arr2):
+            result.append(arr2[right])
+            right += 1
+
+    return result
+
+result = mergeTwo(arr1, arr2)
+# print(result)
+
+nums1 = [1,2,3,0,0,0]
+nums2 = [2,5,6]
+
+def mergeList(nums1, nums2):
+
+    i = len(nums1)-1
+    j = len(nums2)-1
+    k = len(nums1)+len(nums2)-1
+
+    while i >= 0 and j >= 0:
+        if nums1[i] > nums2[j]:
+            nums1[k] = nums1[i]
+            i -= 1
+        else:
+            nums1[k] = nums2[j]
+            j -= 1
+        k -= 1
+
+    while j >= 0:
+        nums1[k] = nums2[j]
+        j -= 1
+        k -= 1
+
+    return nums1
+
+# print(mergeList(nums1, nums2))
+
+
+def isPalindrome(string):
+    
+    alpha = "abcdefghijklmnopqrstuvwxyz0123456789"
+    mapping = {}
+
+    for i in alpha:
+        mapping[i] = True
+
+    left = 0
+    right = len(string)-1
+
+    print(string[left], string[right])
+
+    while left <= right:
+
+        lchar = string[left].lower()
+        rchar = string[right].lower()
+
+        if lchar not in mapping or rchar not in mapping:
+            if lchar not in mapping:
+                left += 1
+            if rchar not in mapping:
+                right -= 1
+        else:
+            if lchar != rchar:
+                return False
+            else:
+                left += 1
+                right -= 1
+
+    return True
+
+string = "A man, a plan, a canal: Panama"
+string = "0P"
+# print(len(string))
+# print(isPalindrome(string))
+
+# def isPalindrome2(string):
+
+    # deleteCount = 0
+
+    # left = 0
+    # right = len(string)-1
+
+    # while left <= right:
+
+    #     if string[left] == string[right]:
+    #         left += 1
+    #         right -= 1
+    #     else:
+    #         if not deleteCount:
+    #             right -= 1
+    #             deleteCount += 1
+    #         else:
+    #             return False
+            
+    # return True
+
+def isPalindrome2(string):
+
+    reverseString = string[::-1]
+    first = 0
+    second = 0
+    count1 = False
+    count2 = False
+
+    while second < len(string):
+
+        if string[first] != reverseString[second]:
+            if not count2:
+                second += 1
+                count2 = True
+            elif not count1:
+                first += 1
+                count1 = True
+            else:
+                return False
+        else:
+            first += 1
+            second += 1
+    else:
+        return True
+
+# string = "abc"
+# string = "deeeee"
+# string = "cbbcc"
+# string = "cdbeeeabddddbaeedebdc"
+# print(isPalindrome2(string))
+
+def reverseVowel(string):
+
+    arr = list(string)
+    left = 0
+    right = len(string)-1
+    vowels = {
+        "a": True,
+        "e": True,
+        "i": True,
+        "o": True,
+        "u": True
+    }
+
+    while right >= left:
+
+        if arr[left].lower() not in vowels or arr[right].lower() not in vowels:
+            if arr[left].lower() not in vowels:
+                left += 1
+            if arr[right].lower() not in vowels:
+                right -= 1
+        else: 
+            arr[left], arr[right] = arr[right], arr[left]
+            left += 1
+            right -= 1
+
+    return "".join(arr)
+
+string = "hello"
+string = ""
+string = "Euston saw I was not Sue."
+output = "euston saw I was not SuE."
+# print(reverseVowel(string))
+
+# print("ritesh".split(""))
+# print(list("ritesh"))
+
+
+def dupilcates(arr, k):
+
+    mapping = {}
+    left = 0
+    right = 0
+
+    while right < k:
+        if arr[right] in mapping:
+            return True
+        mapping[arr[right]] = True
+        right += 1
+
+    while right < len(arr):
+
+        if arr[right] in mapping:
+            if mapping[arr[right]]:
+                return True
+            else:
+                mapping[arr[right]] = True
+        else:
+            mapping[arr[right]] = True
+        right += 1
+        mapping[arr[left]] = False
+        left += 1
+
+    return False
+
+arr = [1,2,3,1,2,3]
+arr = [1,0,1,1]
+k = 1
+# print(dupilcates(arr, k))
+# def maxSubArr(arr):
+
+#     maxi = float('-inf')
+#     avg = 0
+#     left = 0
+#     sum = 0
+#     maxArr = []
+#     for right in nums:
+#         sum += right
+        
+#         if maxi < sum:
+#             maxi = sum
+#             maxArr = arr[left:right+1]
+
+#         if sum < 0:
+#             sum = 0
+
+#     return maxi
+
+def maxSubArr(nums):
+
+    left = 0
+    maxi = float('-inf')
+    avg = 0
+    maxArr = []
+    sum = 0
+
+    for right in range(len(nums)):
+        sum += nums[right]
+
+        if maxi < sum:
+            maxi = sum
+            maxArr = nums[left:right+1]
+            average = maxi/(right+1)
+            avg = max(avg, average)
+        if sum < 0:
+            sum = 0
+            left = right + 1
+
+    return maxi, maxArr, avg 
+
+# print(maxSubArr(nums))
+
+def maxSubArr(nums,k):
+
+    window_sum = sum(nums[:k])
+    left = 0 
+    maxi = window_sum
+
+    for i in range(k, len(nums)):
+        window_sum += nums[i] - nums[left]
+
+        if maxi < window_sum:
+            maxi = window_sum
+        
+        left += 1
+    return maxi/k
+
+
+nums = [1,12,-5,-6,50,3]
+k = 4
+# print(maxSubArr(nums, k))
+
+def kBeauty(num, k):
+
+    string = str(num)
+    left = 0
+    right = k
+    count = 0
+    while right < len(arr):
+        divisor = int(string[left:right])
+        print(string[left:right])
+
+        if num % divisor == 0:
+            count += 1
+        left += 1
+        right += 1
+
+    return count
+
+# print(kBeauty(num, k))
+
+def subArr(arr, k):
+
+    left = 0
+    right = k-1
+
+    while right < len(arr):
+
+        print(arr[left:right+1])
+        left += 1
+        right += 1
+
+arr = [1,2,3,4,5,6,7,8,9]
+k = 3
+# subArr(arr, k)
+
+def kBeauty(number, k):
+
+    string = str(number)
+    left = 0
+    right = k-1
+    count = 0
+
+    while right < len(string):
+        divisor = int(string[left:right+1])
+
+        # print(divisor)
+        if divisor == 00:
+            left += 1
+            right += 1
+            continue
+        elif number % divisor == 0:
+            count += 1
+        left += 1
+        right += 1
+    return count
+
+num = 430043
+k = 2
+result = kBeauty(num, k)
+# print(result)
+
+
+def defuseTheBomb(codes, k):
+
+    limit = len(codes)
+    result = [0] * limit
+
+    if k == 0:
+        return result
+    elif k > 0:
+        for i in range(k):
+            codes.append(codes[i])
+    else:
+        index = limit-1
+        for _ in range(abs(k)):
+            codes.insert[0, codes[index]]
+    print(codes)
+
+code = [5,7,1,4]
+k = -2
+print(defuseTheBomb(code, k))
+
+arr = [1,2,3,4,5]
+arr.insert(0, 10)
+print(arr)

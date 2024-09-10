@@ -427,23 +427,259 @@ def runningSum(number):
 number = [1,2,3,4]
 # print(runningSum(number))
 
-def pivotInteger(number):
+# def pivotInteger(number):
     
-    arr = []
-    for i in range(1, number+1):
-        arr.append(i)
+#     arr = []
+#     for i in range(1, number+1):
+#         arr.append(i)
 
-    leftSum = 0
-    rightSum = sum(arr)
+#     leftSum = 0
+#     rightSum = sum(arr)
 
-    for i in range(len(arr)):
-        if leftSum == rightSum:
-            return i
-        rightSum -= arr[i]
-        if i == 0:
-            
+#     for i in range(len(arr)):
+#         if leftSum == rightSum:
+#             return i
+#         rightSum -= arr[i]
+#         if i == 0:
+
+#     return -1
+
+# print(pivotInteger(8))
+
+string = "YazaAay"
+
+def longestNiceString(string):
+
+    if len(string) <= 1:
+        return ""
+    
+    mapping = {}
+    upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    lower = upper.lower()
+
+    for i in range(len(upper)):
+        mapping[upper[i]] = lower[i]
+        mapping[lower[i]] = upper[i]
+
+    left = 0
+    char_map_index = {}
+    char_map_index[string[left]] = True
+    for right in range(1, len(string)):
+        if mapping[string[right]] in char_map_index:
+            if mapping[string[right]]:
+                return string[left:right+1]
+            else: mapping[string[right]] = True
+        else: mapping[string[right]] = True
+        char_map_index[string[left]] = False
+        left += 1
+
+# longestNiceString(string) 
+
+def nextGreaterElement(nums):
+
+    stack = []
+    result = [-1] * len(nums)
+    for right in range(len(nums)):
+        while stack and nums[right] > nums[stack[-1]]:
+            index = stack.pop()
+            result[index] = nums[right]
+        stack.append(right)
+
+    return result
+
+# nums = [1,3,4,2]
+nums1 = [4,1,2]
+nums2 = [1,3,4,2]
+# print(nextGreaterElement(nums))
 
 
-    return -1
+def nextGreater(nums1, nums2):
 
-print(pivotInteger(8))
+    mapping = {}
+    for i in range(len(nums2)):
+        mapping[nums2[i]] = i
+
+    result = [-1]*len(nums2)
+    stack = []
+
+    for right in range(len(nums2)):
+        while stack and nums2[right] > nums2[stack[-1]]:
+            index = stack[-1]
+            result[index] = nums2[right]
+        stack.append(right)
+
+    result2 = []
+    for j in range(len(nums2)):
+        index = mapping[nums1[j]]
+        result2.append(result[index])
+
+    return result2
+
+def nextGreater(nums1, nums2):
+
+    result = [-1] * len(nums2)
+    stack = []
+    mapping = {}
+    for right in range(len(nums2)):
+        while stack and nums2[right] > nums2[stack[-1]]:
+            index = stack.pop()
+            result[index] = nums2[right]
+        mapping[nums2[right]] = right
+        stack.append(right)
+
+    result1 = []
+    for i in range(len(nums1)):
+        index = mapping[nums1[i]]
+        result1.append(result[index])
+
+    return result1
+
+nums1 = [2,4]
+nums2 = [1,2,3,4]
+# print(nextGreater(nums1, nums2))
+
+ops = ["5","-2","4","C","D","9","+","+"]
+
+def footBall(ops):
+
+    stack = []
+
+    for i in ops:
+        if i == "+":
+            topElement = stack[-1]
+            secondElement = stack[-2]
+            stack.append(topElement + secondElement)
+        elif i == "C":
+            stack.pop()
+        elif i == "D":
+            topElement = stack[-1]
+            stack.append(topElement * 2)
+        else:
+            stack.append(int(i))
+    print(stack)
+    return sum(stack)
+ops = ["5","2","C","D","+"]
+# print(footBall(ops))
+
+# print("+")
+# print(int("9"))
+# print(int("-"))
+
+string1 = [1,2,3]
+string2 = [1,2,3]
+
+# print(string1 == string2)
+
+string = "ritesh"
+
+# print(string[:-1])
+
+string += ' laxman gupta'
+# print(string)
+
+s = "(()())(())"
+
+def removeOutermost(string):
+
+    result = []
+    opened = 0
+
+    for char in string:
+        if char == "(":
+            if opened > 0:
+                result.append(char)
+            opened += 1
+        elif char == ")":
+            if opened > 1:
+                result.append(char)
+            opened -= 1
+
+    return "".join(result)
+
+s = "(()())(())(()(()))"
+# s = "((()))"
+# print(removeOutermost(s))
+
+string = "leEeetcode"
+
+def greatString(string):
+
+    stack = []
+    lower = "abcdefghijklmnopqrstuvwxyz"
+    upper = lower.upper()
+    mapping = {}
+
+    for i in range(len(lower)):
+        mapping[lower[i]] = upper[i]
+        mapping[upper[i]] = lower[i]
+
+    for char in string:
+
+        if stack and char == mapping[stack[-1]]:
+            stack.pop()
+        else:
+            stack.append(char)
+
+    return "".join(stack)
+string = "s"
+result = greatString(string)
+# print(result)
+
+folder = ["d1/","d2/","../","d21/","./"]
+
+def folderOperations(folder):
+
+    stack = []
+
+    for ope in folder:
+        if ope == "../":
+            stack.pop()
+        elif ope == "./":
+            continue
+        else:
+            stack.append(ope)
+
+    return len(stack)
+
+# print(folderOperations(folder))
+
+def maxNesting(string):
+
+    level = 0
+    maxi = 0
+
+    for char in string:
+
+        if char == ")":
+            level -= 1
+        elif char == "(":
+            level += 1
+            maxi = max(maxi, level)
+        else:
+            continue
+
+    return maxi
+
+string = "(1+(2*3)+((8)/4))+1"
+# print(maxNesting(string))
+
+
+students = [1,1,0,0]
+sandwiches = [0,1,0,1]
+
+def countStudents(students, sandwiches):
+
+    count = [students.count(0), students.count(1)]
+
+    for sandwich in sandwiches:
+
+        if count[sandwich]:
+            count[sandwich] -= 1
+        else: 
+            break
+
+    return sum(count)         
+
+result = countStudents(students, sandwiches) 
+# print(result)
+
